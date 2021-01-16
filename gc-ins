@@ -1,0 +1,38 @@
+#!/bin/sh
+clear
+
+sudo apt update &&  sudo apt -y upgrade
+
+sleep 2
+
+clear
+
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+
+sleep 2
+
+clear
+
+sudo apt install ./google-chrome-stable_current_amd64.deb
+
+cd
+git clone https://github.com/libimobiledevice/idevicerestore.git
+cd idevicerestore
+sudo apt install  build-essential checkinstall autoconf automake libtool-bin libreadline-dev
+libusb-1.0-0-dev libplist-dev libimobiledevice-dev libcurl14-openssl-dev libssl-dev libzip-dev
+zlib1g-dev
+git clone https://github.com/libimobiledevice/libirecovery.git
+./autogen.sh
+make
+sudo make install
+cd libirecovery
+./autogen.sh
+make
+sudo make install
+git clone https://github.com/libimobiledevice/usbmuxd.git
+cd usbmuxd
+./autogen.sh
+make
+sudo make install
+idevicerestore --latest
+

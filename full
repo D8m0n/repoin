@@ -1,0 +1,63 @@
+#!/bin/sh
+clear
+tput setaf 93
+echo " "
+echo "  f-FULL SYTEM CLEANSE"
+echo " "
+tput setaf 54
+echo "    u-APT-GET UPDATE"
+echo " "
+tput setaf 77
+echo "       g-APT-GET UPGRADE"
+read d in
+if [ $d = g ]
+then
+  clear
+  sudo apt list --upgradable
+  sleep 3
+  tput setaf 44
+  echo " UPGRADE"
+  echo "   Y/N"
+  read sub in
+  if [ $sub = y ]
+  then
+    clear
+    sudo apt -y upgrade
+  fi
+fi
+if [ $d = u ]
+then
+  clear
+  sudo apt update
+fi
+if [ $d = f ]
+then
+  clear
+  tput setaf 43
+  sudo apt update;sudo apt-get update
+  sudo apt list --upgradable
+  sleep 3
+  echo " UPGRADE ALL"
+  echo "    Y/N"
+  read ans in
+  if [ $ans = y ]
+  then
+    clear
+    sudo apt -y upgrade;sudo apt-get -y upgrade
+    clear
+    sudo apt clean
+    sudo apt clean cache
+    tput setaf 129
+    echo " SYSTEM UPDATE UPGRADED CLEANED && CACHE RECYCLED"
+    tput setaf 64
+    echo " WOULD THAT BE ALL FOR NOW "
+    read sir in
+    if [ $sir = y ]
+    then
+      tput setaf 84
+      echo " SPLENDED ALLOW ME TO SHUT DOWN THE SKYNET SERVOS"
+      sleep 3
+      exit
+    fi
+  fi
+fi
